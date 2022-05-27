@@ -195,26 +195,6 @@ bottleneck_final_model = Model(inputs=model.input, outputs=merge)
 
 
 
-model_name = 'ensemble_model'
-bottleneck_features_train = bottleneck_final_model.predict_generator(train_generator, predict_size_train)
-np.save(extracted_features_dir+'bottleneck_features_train_'+model_name+'.npy', bottleneck_features_train)
-
-
-
-
-# training call backs 
-lr_reduce = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, epsilon=0.0001, patience=3, verbose=1)
-#es_callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, verbose=1)
-
-
-
-
-
-
-def categorical_smooth_loss(y_true, y_pred, label_smoothing=0.1):
-    loss = tf.keras.losses.categorical_crossentropy(y_true, y_pred, label_smoothing=label_smoothing)
-    return loss
-
 
 
 
